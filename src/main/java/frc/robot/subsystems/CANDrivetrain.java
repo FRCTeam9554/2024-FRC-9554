@@ -32,6 +32,11 @@ public class CANDrivetrain extends SubsystemBase {
     CANSparkMax rightFront = new CANSparkMax(kRightFrontID, MotorType.kBrushed);
     CANSparkMax rightRear = new CANSparkMax(kRightRearID, MotorType.kBrushed);
 
+    leftFront.restoreFactoryDefaults();
+    leftRear.restoreFactoryDefaults();
+    rightFront.restoreFactoryDefaults();
+    rightRear.restoreFactoryDefaults();
+
     /*Sets current limits for the drivetrain motors. This helps reduce the likelihood of wheel spin, reduces motor heating
      *at stall (Drivetrain pushing against something) and helps maintain battery voltage under heavy demand */
     leftFront.setSmartCurrentLimit(kCurrentLimit);

@@ -27,9 +27,9 @@ import frc.robot.commands.PrepareLaunch;
 public class RobotContainer {
   // The robot's subsystems are defined here.
   //private final PWMDrivetrain m_drivetrain = new PWMDrivetrain();
-   private final CANDrivetrain m_drivetrain = new CANDrivetrain();
+   public final CANDrivetrain m_drivetrain = new CANDrivetrain();
   //private final PWMLauncher m_launcher = new PWMLauncher();
-   private final CANLauncher m_launcher = new CANLauncher();
+   public final CANLauncher m_launcher = new CANLauncher();
 
   /*The gamepad provided in the KOP shows up like an XBox controller if the mode switch is set to X mode using the
    * switch on the top.*/
