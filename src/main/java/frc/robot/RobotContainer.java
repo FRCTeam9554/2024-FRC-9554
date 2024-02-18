@@ -12,10 +12,9 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.LaunchNote;
 import frc.robot.commands.PrepareLaunch;
-//import frc.robot.subsystems.PWMDrivetrain;
-//import frc.robot.subsystems.PWMLauncher;
-
- import frc.robot.subsystems.CANDrivetrain;
+import frc.robot.commands.amper.*;
+import frc.robot.subsystems.Amper;
+import frc.robot.subsystems.CANDrivetrain;
  import frc.robot.subsystems.CANLauncher;
 
 /**
@@ -26,10 +25,10 @@ import frc.robot.commands.PrepareLaunch;
  */
 public class RobotContainer {
   // The robot's subsystems are defined here.
-  //private final PWMDrivetrain m_drivetrain = new PWMDrivetrain();
    public final CANDrivetrain m_drivetrain = new CANDrivetrain();
-  //private final PWMLauncher m_launcher = new PWMLauncher();
    public final CANLauncher m_launcher = new CANLauncher();
+   public final Amper m_Amper = new Amper();
+ 
 
   /*The gamepad provided in the KOP shows up like an XBox controller if the mode switch is set to X mode using the
    * switch on the top.*/
@@ -71,6 +70,12 @@ public class RobotContainer {
     // Set up a binding to run the intake command while the operator is pressing and holding the
     // left Bumper
     m_operatorController.leftBumper().whileTrue(m_launcher.getIntakeCommand());
+    
+    //amper intake to run while operator presses the b button
+    m_operatorController.x().onTrue(new intake(m_Amper)).onFalse(new hold(m_Amper));
+    
+    //trying to get intake to outtake while operator double pushes b 
+    
   }
 
   /**

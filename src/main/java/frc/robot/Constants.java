@@ -35,8 +35,8 @@ public final class Constants {
     // PWM ports/CAN IDs for motor controllers
     public static final int kFeederID = 5;
     public static final int kLauncherID = 6;
-    
-
+  
+  
     // Current limit for launcher and feed wheels
     public static final int kLauncherCurrentLimit = 80;
     public static final int kFeedCurrentLimit = 80;
@@ -47,7 +47,27 @@ public final class Constants {
     public static final double kLaunchFeederSpeed = -1;
     public static final double kIntakeLauncherSpeed = 1;
     public static final double kIntakeFeederSpeed = .2;
-
     public static final double kLauncherDelay = 1;
+  }
+  public static class AmpConstants{
+    //CAN ID for Amp  motor controller 
+    public static final int kAmpID = 7;
+    
+    //Current limit for Amp Wheels 
+
+    public static final int kAmpCurrentLimit = 80; 
+
+    //Speed for wheels when using Amper 
+
+    public static final double kAmpIntakePower = -0.5;
+    public static final double kAmpOuttakePower = 0.5;
+    public static final double kAmpHoldPower = -0.2; 
+  }
+  public static class ClimberConstants{
+    public static final int kClimberID = 8; 
+    
+    //Power for climber
+    public static final double kExtendPower = 0.5; 
+    public static final double kRetractPower = -0.5;  
   }
 }

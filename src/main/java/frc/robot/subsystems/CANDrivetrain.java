@@ -3,9 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems;
-
 import static frc.robot.Constants.DrivetrainConstants.*;
-
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -25,17 +23,20 @@ public class CANDrivetrain extends SubsystemBase {
 
   /*Constructor. This method is called when an instance of the class is created. This should generally be used to set up
    * member variables and perform any configuration or set up necessary on hardware.
-   */
+  */
+  
   public CANDrivetrain() {
     CANSparkMax leftFront = new CANSparkMax(kLeftFrontID, MotorType.kBrushed);
     CANSparkMax leftRear = new CANSparkMax(kLeftRearID, MotorType.kBrushed);
     CANSparkMax rightFront = new CANSparkMax(kRightFrontID, MotorType.kBrushed);
     CANSparkMax rightRear = new CANSparkMax(kRightRearID, MotorType.kBrushed);
+  
 
     leftFront.restoreFactoryDefaults();
     leftRear.restoreFactoryDefaults();
     rightFront.restoreFactoryDefaults();
     rightRear.restoreFactoryDefaults();
+  
 
     /*Sets current limits for the drivetrain motors. This helps reduce the likelihood of wheel spin, reduces motor heating
      *at stall (Drivetrain pushing against something) and helps maintain battery voltage under heavy demand */
@@ -54,8 +55,13 @@ public class CANDrivetrain extends SubsystemBase {
 
     // Put the front motors into the differential drive object. This will control all 4 motors with
     // the rears set to follow the fronts
+
     m_drivetrain = new DifferentialDrive(leftFront, rightFront);
   }
+
+  
+
+  
 
   /*Method to control the drivetrain using arcade drive. Arcade drive takes a speed in the X (forward/back) direction
    * and a rotation about the Z (turning the robot about it's center) and uses these to control the drivetrain motors */
