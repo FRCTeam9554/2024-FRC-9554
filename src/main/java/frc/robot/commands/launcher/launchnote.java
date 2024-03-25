@@ -25,6 +25,7 @@ public class launchnote extends Command {
     m_launcher.setLaunchWheels(kLauncheraSpeed,kLauncherbSpeed);
     m_launcher.setFeedWheels(kFeederaSpeed,kFeederbSpeed);
     m_launcher.setFloorIntake(kFloorIntakeSpeed);
+    
   }
 
   // Called every time the scheduler runs while the command is scheduled.

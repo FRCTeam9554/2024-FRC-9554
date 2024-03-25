@@ -45,6 +45,13 @@ public class Drivetrain extends SubsystemBase {
   public void tankDrive(double leftSpeed, double rightSpeed){ 
     m_drivetrain.tankDrive(leftSpeed, rightSpeed);
   }
+
+  public void stop(){
+    RightRear.stopMotor();
+    RightFront.stopMotor();
+    LeftFront.stopMotor();
+    LeftRear.stopMotor();
+  }
   
 
 

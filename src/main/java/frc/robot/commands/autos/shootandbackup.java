@@ -3,6 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.commands.autos;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.launcher.launchnote;
 import frc.robot.commands.launcher.preparelaunch;
@@ -20,7 +21,8 @@ public class shootandbackup extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new preparelaunch(launcher).withTimeout(2.0).andThen(
-      new launchnote(launcher).andThen(
-      new backup(drivetrain)).withTimeout(3)));
+      new launchnote(launcher).withTimeout(1).andThen(
+      new backup(drivetrain).andThen(
+      new cmdDriveTrain_StopDrive(drivetrain)))));
   }
 }

@@ -4,11 +4,13 @@
 
 package frc.robot.commands.autos;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Drivetrain;
 
 public class backup extends Command {
   Drivetrain drivetrain; 
+  Timer time = new Timer();
   public backup(Drivetrain drivetrain) {
     addRequirements(drivetrain);
   }
@@ -18,6 +20,8 @@ public class backup extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    time.reset();
+    time.start();
     drivetrain.arcadeDrive(-0.4,0);
   }
 
@@ -34,6 +38,6 @@ public class backup extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return time.get() > 3 ? true : false;
   }
 }
