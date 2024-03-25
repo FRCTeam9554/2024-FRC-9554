@@ -47,13 +47,17 @@ public class RobotContainer {
     //default command to drvie using the joysticks
     m_drivetrain.setDefaultCommand(
       new RunCommand(
-        ()-> m_drivetrain.arcadeDrive
-        (m_driverController.getLeftY(), 
-          m_driverController.getRightX()), m_drivetrain));
+        ()-> m_drivetrain.tankDrive(-m_driverController.getLeftY(), -m_driverController.getRightY()), m_drivetrain)
+    );
+    //m_drivetrain.setDefaultCommand(
+    //  new RunCommand(
+    //    ()-> m_drivetrain.arcadeDrive
+    //    (m_driverController.getLeftY(), 
+    //      m_driverController.getRightX()), m_drivetrain));
 
     //operator will launch when pushing right bumper and floorintake when pushing right bumber
     m_operatorController.leftBumper().whileTrue(new preparelaunch(m_launcher).
-      withTimeout(0.5).andThen(new launchnote(m_launcher)));
+      withTimeout(0.5).andThen(new launchnote(m_launcher)).andThen());
     m_operatorController.rightBumper().whileTrue(new floorintake(m_launcher));
     m_operatorController.b().whileTrue(new floorouttake(m_launcher));
   
