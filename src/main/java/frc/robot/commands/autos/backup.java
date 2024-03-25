@@ -2,25 +2,23 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.amper;
+package frc.robot.commands.autos;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants.AmpConstants;
-import frc.robot.subsystems.Amper;
+import frc.robot.subsystems.Drivetrain;
 
-public class hold extends Command {
-  /** Creates a new hold. */
-  Amper m_amper; 
-  public hold(Amper amper) {
-    m_amper = amper;
-    addRequirements(m_amper);
-  
+public class backup extends Command {
+  Drivetrain drivetrain; 
+  public backup(Drivetrain drivetrain) {
+    addRequirements(drivetrain);
   }
 
-  
+
+
+  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_amper.setPower(AmpConstants.kAmpHoldPower);
+    drivetrain.arcadeDrive(-0.4,0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -29,7 +27,9 @@ public class hold extends Command {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    drivetrain.arcadeDrive(0,0);
+  }
 
   // Returns true when the command should end.
   @Override

@@ -3,32 +3,39 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems;
-import static frc.robot.Constants.AmpConstants.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType; 
-
- 
-
+import com.revrobotics.CANSparkLowLevel.MotorType;
+import static frc.robot.Constants.AmperConstants.*;
 
 public class Amper extends SubsystemBase {
+  CANSparkMax amper; 
 
-  CANSparkMax ampMotor;
-  /** Creates a new Amp. */
   public Amper() {
-    ampMotor = new CANSparkMax (kAmpID,MotorType.kBrushless);
-    ampMotor.setInverted(true);
-  }
-  
-  public void setPower(double power){
-    ampMotor.set(power);
+    amper = new CANSparkMax(kAmperID, MotorType.kBrushed);
+    amper.setSmartCurrentLimit(kAmperCurrentLimit);
+    
+
   }
 
+  public void setExtendSpeed(int kAmperExtendSpeed){
+    amper.set(kAmperExtendSpeed);
+  }
+
+  public void setRetractSpeed(int kAmperRetractSpeed){
+    amper.set(kAmperRetractSpeed);
+  }
+ 
+  public void setIdlePower(int KAmperIdlePower){
+    amper.set(KAmperIdlePower);
+  }
+  public void stop(){
+    amper.set(0);
+  }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
   }
-  public void stop() {
-    ampMotor.set(0);
-  }
+
+
 }

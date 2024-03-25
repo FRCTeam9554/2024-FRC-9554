@@ -3,19 +3,24 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
-
+import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.amper.extend;
+import frc.robot.commands.amper.idle;
+import frc.robot.commands.amper.retract;
+import frc.robot.commands.amper.slowspeedlaunch;
+//import frc.robot.commands.amper.slowspeedlaunch;
+import frc.robot.commands.autos.shootandbackup;
+import frc.robot.commands.launcher.floorintake;
+import frc.robot.commands.launcher.floorouttake;
+import frc.robot.commands.launcher.launchnote;
+import frc.robot.commands.launcher.preparelaunch;
+import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.CANLauncher;
+import frc.robot.subsystems.Amper;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.Constants.LauncherConstants;
-import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.Autos;
-import frc.robot.commands.LaunchNote;
-import frc.robot.commands.PrepareLaunch;
-import frc.robot.commands.amper.*;
-import frc.robot.subsystems.Amper;
-import frc.robot.subsystems.CANDrivetrain;
- import frc.robot.subsystems.CANLauncher;
+
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -24,59 +29,45 @@ import frc.robot.subsystems.CANDrivetrain;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-  // The robot's subsystems are defined here.
-   public final CANDrivetrain m_drivetrain = new CANDrivetrain();
-   public final CANLauncher m_launcher = new CANLauncher();
-   public final Amper m_Amper = new Amper();
- 
-
-  /*The gamepad provided in the KOP shows up like an XBox controller if the mode switch is set to X mode using the
-   * switch on the top.*/
+  // The robot's subsystems and commands are defined here...
+  public final CANLauncher m_launcher = new CANLauncher();
+  public final Drivetrain m_drivetrain =  new Drivetrain();
+  public final Amper m_amper = new Amper();
+  private final CommandXboxController m_operatorController =
+      new CommandXboxController(OperatorConstants.kOperatorPort);
   private final CommandXboxController m_driverController =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
-  private final CommandXboxController m_operatorController =
-      new CommandXboxController(OperatorConstants.kOperatorControllerPort);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
   }
-
-  /**
-   * Use this method to define your trigger->command mappings. Triggers can be accessed via the
-   * named factory methods in the Command* classes in edu.wpi.first.wpilibj2.command.button (shown
-   * below) or via the Trigger constructor for arbitary conditions
-   */
   private void configureBindings() {
-    // Set the default command for the drivetrain to drive using the joysticks
+    //default command to drvie using the joysticks
     m_drivetrain.setDefaultCommand(
-        new RunCommand(
-            () ->
-                m_drivetrain.arcadeDrive(
-                    -m_driverController.getLeftY(), -m_driverController.getRightX()),
-            m_drivetrain));
+      new RunCommand(
+        ()-> m_drivetrain.arcadeDrive
+        (m_driverController.getLeftY(), 
+          m_driverController.getRightX()), m_drivetrain));
 
-    /*Create an inline sequence to run when the operator presses and holds the A (green) button. Run the PrepareLaunch
-     * command for 1 seconds and then run the LaunchNote command */
-    m_operatorController
-        .a()
-        .whileTrue(
-            new PrepareLaunch(m_launcher)
-                .withTimeout(LauncherConstants.kLauncherDelay)
-                .andThen(new LaunchNote(m_launcher))
-                .handleInterrupt(() -> m_launcher.stop()));
+    //operator will launch when pushing right bumper and floorintake when pushing right bumber
+    m_operatorController.leftBumper().whileTrue(new preparelaunch(m_launcher).
+      withTimeout(0.5).andThen(new launchnote(m_launcher)));
+    m_operatorController.rightBumper().whileTrue(new floorintake(m_launcher));
+    m_operatorController.b().whileTrue(new floorouttake(m_launcher));
+  
+     
+      
+  //operator will use amper with slowspeedlaunch
+  m_amper.setDefaultCommand(new idle(m_amper));
+    m_operatorController.a().whileTrue(new slowspeedlaunch(m_launcher)); 
+    m_operatorController.x().whileTrue(new extend(m_amper));
+    m_operatorController.y().whileTrue(new retract(m_amper));
 
-    // Set up a binding to run the intake command while the operator is pressing and holding the
-    // left Bumper
-    m_operatorController.leftBumper().whileTrue(m_launcher.getIntakeCommand());
-    
-    //amper intake to run while operator presses the b button
-    m_operatorController.x().onTrue(new intake(m_Amper)).onFalse(new hold(m_Amper));
-    
-    //trying to get intake to outtake while operator double pushes b 
-    
+  
   }
+  
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -84,7 +75,6 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // An example command will be run in autonomous
-    return Autos.exampleAuto(m_drivetrain);
+   return new shootandbackup(m_drivetrain, m_launcher);
   }
 }

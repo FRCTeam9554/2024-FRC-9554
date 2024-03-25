@@ -14,60 +14,64 @@ package frc.robot;
  */
 public final class Constants {
   public static class OperatorConstants {
-    // Port numbers for driver and operator gamepads. These correspond with the numbers on the USB
-    // tab of the DriverStation
     public static final int kDriverControllerPort = 0;
-    public static final int kOperatorControllerPort = 1;
+    public static final int kOperatorPort = 1; 
   }
+  public static class LauncherConstants{
+    //facing the back a is right b is left 
+    public static final int kFeederaID = 1; 
+    public static final int kFeederbID = 2; 
+    public static final int kLauncheraID = 3;
+    public static final int kLauncherbID = 4; 
 
-  public static class DrivetrainConstants {
-    // PWM ports/CAN IDs for motor controllers
-    public static final int kLeftRearID = 1;
-    public static final int kLeftFrontID = 2;
-    public static final int kRightRearID = 3;
-    public static final int kRightFrontID = 4;
+    //current limit for feeders and launchers 
 
-    // Current limit for drivetrain motors
-    public static final int kCurrentLimit = 60;
-  }
+    public static final int kLauncheraLimit = 120; 
+    public static final int kLauncherbLimit = 120; 
+    public static final int kFeederaLimit = 60;
+    public static final int kFeederbLimit = 60; 
 
-  public static class LauncherConstants {
-    // PWM ports/CAN IDs for motor controllers
-    public static final int kFeederID = 5;
-    public static final int kLauncherID = 6;
-  
-  
-    // Current limit for launcher and feed wheels
-    public static final int kLauncherCurrentLimit = 80;
-    public static final int kFeedCurrentLimit = 80;
+    //speed for wheels when intaking and shooting for speaker
 
-    // Speeds for wheels when intaking and launching. Intake speeds are negative to run the wheels
-    // in reverse
-    public static final double kLauncherSpeed = -1;
-    public static final double kLaunchFeederSpeed = -1;
-    public static final double kIntakeLauncherSpeed = 1;
-    public static final double kIntakeFeederSpeed = .2;
-    public static final double kLauncherDelay = 1;
-  }
-  public static class AmpConstants{
-    //CAN ID for Amp  motor controller 
-    public static final int kAmpID = 7;
+    public static final double kFeederaSpeed = -1; 
+    public static final double kFeederbSpeed = 1; 
+    public static final double kLauncheraSpeed = 1; 
+    public static final double kLauncherbSpeed = -1; 
+    public static final double kLauncherDelay = 2; 
     
-    //Current limit for Amp Wheels 
-
-    public static final int kAmpCurrentLimit = 80; 
-
-    //Speed for wheels when using Amper 
-
-    public static final double kAmpIntakePower = -0.5;
-    public static final double kAmpOuttakePower = 0.5;
-    public static final double kAmpHoldPower = -0.2; 
   }
-  public static class ClimberConstants{
-    public static final int kClimberID = 8; 
-    
-    //Power for climber
-    public static final double kExtendPower = 0.5; 
-    public static final double kRetractPower = -0.5;  
+  //floor intake constants
+  public static class FloorIntakeConstants{
+    public static final int kFloorIntakeID = 9; 
+
+    //current limit 
+    public static final int kFloorIntakeLimit = 80; 
+
+    //speed of wheels when intaking 
+    public static final double kFloorIntakeSpeed = -1;
+    public static final double kFloorOuttakeSpeed = 1;  
+
+  }
+  public static class DrivetrainConstatnts{
+
+    public static final int kRightRearID = 5;
+    public static final int kRightFrontID = 6; 
+    public static final int kLeftRearID = 7;
+    public static final int kLeftFrontID = 8;
+
+    //current limit for drivetrain
+    public static final int kRightRearLimit = 60; 
+    public static final int kRightFrontLimit = 60;
+    public static final int kLeftRearLimit = 60;
+    public static final int kLeftFrontLimit = 60;
+  }
+
+  public static class AmperConstants{
+    public static final int kAmperID = 10; 
+    public static final int kAmperExtendSpeed = 1; 
+    public static final int kAmperRetractSpeed = -1;
+    public static final int KAmperIdlePower = 0; 
+    public static final int kAmperCurrentLimit = 60; 
+
   }
 }
